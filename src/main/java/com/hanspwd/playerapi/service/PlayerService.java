@@ -39,11 +39,16 @@ public class PlayerService {
         return playerRepository.removePlayer(id);
     }
 
+    // exp
     public boolean removePlayers(int[] ids) {
         return playerRepository.removePlayers(ids);
     }
 
     public Player updatePlayerById(int id, Player newPlayer) {
         return playerRepository.updatePlayerById(id, newPlayer);
+    }
+
+    public Player updatePlayerLevel(int id, long newLevel) {
+        return playerRepository.updatePlayerLevel(id, newLevel);
     }
 }

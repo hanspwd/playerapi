@@ -58,4 +58,10 @@ public class PlayerRepository {
         oldPlayer.setBanned(newPlayer.isBanned());
         return oldPlayer;
     }
+
+    public Player updatePlayerLevel(int id, long newLevel) {
+        Player oldPlayer = getPlayerById(id).get();
+        oldPlayer.setLevel(newLevel);
+        return oldPlayer;
+    }
 }
