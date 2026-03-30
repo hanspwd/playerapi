@@ -1,11 +1,11 @@
 package com.hanspwd.playerapi.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.hanspwd.playerapi.exceptions.PlayerNotFoundException;
 import com.hanspwd.playerapi.model.Player;
 import com.hanspwd.playerapi.repository.PlayerRepository;
 
@@ -23,8 +23,9 @@ public class PlayerService {
         return playerRepository.getAllBannedPlayers();
     }
 
-    public Optional<Player> getPlayerById(int id) {
-        return playerRepository.getPlayerById(id);
+    public Player getPlayerById(int id) {
+        return playerRepository.getPlayerById(id).orElseThrow(
+            () -> new PlayerNotFoundException("Player with id " + id + " not found"));
     }
 
     public Player addPlayer(Player player) {

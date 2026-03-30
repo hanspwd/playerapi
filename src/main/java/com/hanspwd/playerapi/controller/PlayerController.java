@@ -6,9 +6,9 @@ import com.hanspwd.playerapi.model.Player;
 import com.hanspwd.playerapi.service.PlayerService;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,8 +34,9 @@ public class PlayerController {
     }
 
     @GetMapping("{id}")
-    public Optional<Player> getPlayerById(@PathVariable int id) {
-        return playerService.getPlayerById(id);
+    public ResponseEntity<Player> getPlayerById(@PathVariable int id) {
+        Player player = playerService.getPlayerById(id);
+        return ResponseEntity.ok(player);
     }
     
     @PostMapping()
