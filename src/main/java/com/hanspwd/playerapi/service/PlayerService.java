@@ -35,8 +35,12 @@ public class PlayerService {
         return playerRepository.addPlayers(newPlayers);
     }
 
-    public void removePlayer(int id) {
-        playerRepository.removePlayer(id);
+    public boolean removePlayer(int id) {
+        return playerRepository.removePlayer(id);
+    }
+
+    public boolean removePlayers(int[] ids) {
+        return playerRepository.removePlayers(ids);
     }
 
     public Player updatePlayerById(int id, Player newPlayer) {

@@ -39,6 +39,18 @@ public class PlayerRepository {
         return players.removeIf(p -> p.getId() == id); 
     }
 
+    // exp
+    public boolean removePlayers(int[] ids) {
+        if(ids.length == 0) {
+            return false;
+        }
+
+        for (int id : ids) {
+            removePlayer(id);
+        }
+        return true;
+    }
+
     public Player updatePlayerById(int id, Player newPlayer) {
         Player oldPlayer = getPlayerById(id).get();
         oldPlayer.setUsername(newPlayer.getUsername());
