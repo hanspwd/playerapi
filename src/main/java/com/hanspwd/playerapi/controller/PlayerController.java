@@ -54,7 +54,7 @@ public class PlayerController {
         return playerService.updatePlayerById(id, player);
     }
 
-    @PutMapping("{id}/level/{newLevel}")
+    @PutMapping("{id}/changelevel/{newLevel}")
     public Player putMethodName(@PathVariable int id, @PathVariable Long newLevel) {
         return playerService.updatePlayerLevel(id, newLevel);
     }
