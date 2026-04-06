@@ -28,7 +28,6 @@ public class Player {
 
     @Min(value = 1, message = "Level cannot be less than 1")
     @Max(value = 100, message = "Level cannot be more than 100")
-    @NegativeOrZero(message = "Level cannot be negative")
     private long level;
 
     private boolean isBanned;
