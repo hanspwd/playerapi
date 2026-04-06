@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hanspwd.playerapi.model.Player;
 import com.hanspwd.playerapi.service.PlayerService;
 
+import jakarta.validation.Valid;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,14 +36,15 @@ public class PlayerController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Player> getPlayerById(@PathVariable int id) {
-        Player player = playerService.getPlayerById(id);
+    public ResponseEntity<Player> getPlayerById(@Valid @PathVariable int id) {
+        Player player = playerService.getPlayerById(id).get();
         return ResponseEntity.ok(player);
     }
     
     @PostMapping()
-    public Player postPlayer(@RequestBody Player player) {
-        return playerService.addPlayer(player);
+    public ResponseEntity<String> postPlayer(@Valid @RequestBody Player player) {
+        Player newPlayer = playerService.addPlayer(player);
+        return ResponseEntity.ok("Jugador con nombre " + newPlayer.getUsername() + " creado con éxito.");
     }
 
     @PostMapping("bulk")
@@ -50,13 +53,15 @@ public class PlayerController {
     }
 
     @PutMapping("{id}")
-    public Player putPlayer(@PathVariable int id, @RequestBody Player player) {
-        return playerService.updatePlayerById(id, player);
+    public ResponseEntity<String> putPlayer(@Valid @PathVariable int id, @RequestBody Player player) {
+        Player newPlayer = playerService.updatePlayerById(id, player);
+        return ResponseEntity.ok("Jugador " + newPlayer.getUsername() + "modificado con éxito.");
     }
 
     @PutMapping("{id}/changelevel/{newLevel}")
-    public Player putMethodName(@PathVariable int id, @PathVariable Long newLevel) {
-        return playerService.updatePlayerLevel(id, newLevel);
+    public ResponseEntity<String> putMethodName(@Valid @PathVariable int id, @PathVariable Long newLevel) {
+        Player player = playerService.updatePlayerLevel(id, newLevel);
+        return ResponseEntity.ok("A la jugador " + player.getUsername() + " se le ha cambiado el nivel a " + newLevel + ".");
     }
     
 }
