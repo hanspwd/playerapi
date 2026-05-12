@@ -12,6 +12,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,7 +34,7 @@ public class PlayerController {
         return ResponseEntity.ok(players);
     }
 
-    @GetMapping("{id}")
+    @GetMapping("id/{id}")
     public ResponseEntity<?> getPlayersById(@Valid @PathVariable Long id) {
         Player player = playerService.readById(id);
         if(player == null) {
@@ -42,7 +43,7 @@ public class PlayerController {
         return ResponseEntity.ok(player);
     }
 
-    @GetMapping("{username}")
+    @GetMapping("username/{username}")
     public ResponseEntity<?> getPlayersById(@Valid @PathVariable String username) {
         Player player = playerService.readByUsername(username);
         if(player == null) {
@@ -54,6 +55,12 @@ public class PlayerController {
     @PostMapping
     public ResponseEntity<?> postPlayer(@Valid @RequestBody Player player) throws Exception{
         return ResponseEntity.status(201).body(playerService.createPlayer(player));
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<?> deletePlayer(@Valid @PathVariable Long id) {
+        playerService.deletePlayer(id);
+        return ResponseEntity.ok("Jugador con id " + id + " eliminado con exito.");
     }
     
 }
